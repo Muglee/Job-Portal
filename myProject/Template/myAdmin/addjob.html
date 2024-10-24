@@ -1,0 +1,110 @@
+
+{% extends 'common/home.html' %}
+
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Add Job</title>
+
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    max-width: 600px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+label {
+    display: block;
+    margin: 15px 0 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #4cae4c;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add Job Listing</h1>
+        <form id="jobForm" action="" method='POST' enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="jobTitle">Job Title:</label>
+            <input type="text" id="jobTitle" name="jobTitle" required>
+
+            <label for="jobDescription">Job Description:</label>
+            <textarea id="jobDescription" name="jobDescription" rows="4" required></textarea>
+
+            <label for="jobRequirements">Job Requirements:</label>
+            <textarea id="jobRequirements" name="jobRequirements" rows="4" required></textarea>
+
+            <label for="companyName">Company Name:</label>
+            <input type="text" id="companyName" name="companyName" required>
+
+            <label for="companyName">Company Logo:</label>
+            <input type="file" id="companyName" name="c_logo" required>
+
+            <label for="location">Company Location:</label>
+            <input type="text" id="location" name="location" required>
+
+            <label for="location">Qualifications:</label>
+            <input type="text" id="location" name="qualifications" required>
+
+            <label for="location">Deadline:</label>
+            <input type="text" id="location" name="deadline" required>
+
+            <label for="location">Salary:</label>
+            <input type="text" id="location" name="salary" required>
+
+            <button type="submit">Post Job</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
+
+{% endblock body %}

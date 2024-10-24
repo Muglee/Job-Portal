@@ -1,0 +1,93 @@
+
+{% extends 'common/home.html' %}
+
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Message List</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  
+  body {
+    background-color: #f4f7f9;
+    padding: 20px;
+  }
+  
+  .message-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .message-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .message-item {
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .message-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  
+  .sender {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .time {
+    font-size: 0.9rem;
+    color: #777;
+  }
+  
+  .message-body p {
+    color: #555;
+    line-height: 1.5;
+  }
+  
+  </style>
+</head>
+<body>
+  <div class="message-container">
+    <ul class="message-list">
+      <li class="message-item">
+        {% for message in messages %}
+        <div class="message-header">
+          <span class="sender">{{messages.sender}}</span>
+          <span class="time">{{messages.timestamp|date:"Y-m-d H:i" }}</span>
+        </div>
+        <div class="message-body">
+          <p>{{messages.content}}</p>
+        </div>
+        {% empty %}
+        <tr>
+            <td>No messages sent for this job.</td>
+        </tr>
+        {% endfor %}
+      </li>
+    </ul>
+  </div>
+</body>
+</html>
+
+
+
+{% endblock body %}

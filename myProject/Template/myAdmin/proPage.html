@@ -1,0 +1,103 @@
+{% extends 'common/home.html' %}
+
+{% block body %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+    }
+    
+    .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .profile {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .profile img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+
+    .profile h2 {
+        margin: 10px 0;
+        font-size: 2em;
+    }
+
+    .profile p {
+        font-size: 1.2em;
+        color: #555;
+    }
+
+    .bio {
+        font-size: 1.1em;
+        line-height: 1.6;
+        margin: 20px 0;
+        text-align: left;
+    }
+
+    footer {
+        margin-top: 20px;
+        text-align: center;
+        color: #777;
+    }
+
+    .edit-link {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 10px 15px;
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .edit-link:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<div class="container">
+    
+
+    <div class="profile">
+        
+        <h2>{{ request.user.first_name }} {{ request.user.last_name }} </h2>
+
+        {% for i in data %}
+        <img src="/{{ i.Profile_Pic }}" alt="Profile Picture">
+        {% endfor %}
+        
+        <p>Name: {{ request.user.username }}</p>
+        <p>Gender: {{ request.user.gender }}</p>
+        <p>User Type: {{ request.user.user_type }}</p>
+        <p>First Name: {{ request.user.first_name }}</p>
+        <p>Last Name: {{ request.user.last_name }}</p>
+        
+        <a class="edit-link" href="{% url 'createdJob' %}">Created Job</a>
+        <a class="edit-link" href="{% url 'addjob' %}">Add Job</a>
+            
+    </div>
+
+
+ 
+    
+
+    <footer>
+        <p>Profile Page</p>
+    </footer>
+</div>
+
+{% endblock body %}

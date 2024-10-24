@@ -1,0 +1,96 @@
+{% extends 'Common/base.html' %}
+
+{% block body %}
+
+<style>
+    body {
+        background-color: #f4f4f4;
+    }
+    
+    .card {
+        transition: transform 0.2s;
+        border: none;
+        border-radius: 10px;
+    }
+    
+    .card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-bar .input-group {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .btn-primary, .btn-dark {
+        border-radius: 20px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-text {
+        font-size: 1rem;
+    }
+    
+</style>
+
+<!-- Bootstrap CSS & JS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Job Feed</h1>
+
+    <!-- Search Bar -->
+    <div class="search-bar mb-4">
+        
+        <form method="GET" action="{% url 'searchJob' %}">
+
+            <div class="input-group">
+                <input type="text" name="query" class="form-control" placeholder="Search for jobs..." required>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Job Listing -->
+    <div class="job-list">
+        <h2>You searched for: "{{ query }}"</h2>
+
+        {% for job in jobs %}
+        <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title">{{ job.job_title }}</h2>
+                <p class="card-text"><strong>Company:</strong> {{ job.company_name }}</p>
+                <p class="card-text"><strong>Location:</strong> {{ job.location }}</p>
+                <p class="card-text"><strong>Salary:</strong> ${{ job.salary|default:"Not specified" }}</p>
+                <p class="card-text"><strong>Employment Type:</strong> {{ job.employment_type|default:"Not specified" }}</p>
+                <p class="card-text"><strong>Application Deadline:</strong> {{ job.application_deadline|default:"Not specified" }}</p>
+                
+                <!-- Display the 'Apply Now' and 'View Job' buttons for jobseekers -->
+                {% if request.user.user_type == 'jobseeker' %}
+                <a href="{% url 'ApplyNow' job.job_title job.id %}" class="btn btn-primary">Apply Now</a>
+                <a href="{% url 'viewJob' job.id %}" class="btn btn-dark">View Job</a>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">No jobs available at the moment.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock body %}

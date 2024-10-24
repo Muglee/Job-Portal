@@ -1,0 +1,82 @@
+
+{% extends 'common/home.html' %}
+
+{% block body %}
+    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Feed</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .job {
+            transition: background 0.3s;
+        }
+        .job:hover {
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center"> Created Job</h1>
+        <div class="row mb-4">
+            <div class="col-md-8 offset-md-2">
+                <div class="input-group">
+                    <input type="text" id="search" class="form-control" placeholder="Search for jobs...">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" onclick="searchJobs()">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+       
+       
+       <div id="job-list" class="list-group">
+        {% for i in Job %}
+            <div class="list-group-item job">
+                <h5>{{i.job_title}}</h5>
+                <p><strong>Company:</strong> {{i.Company_name}}</p>
+                <p><strong>Description:</strong> {{i.Description}}</p>
+                <p><strong>Salary:</strong> {{i.Salary}}</p>
+                <p><strong>Application Deadline:</strong> {{i.application_deadline}}</p>
+                <p><strong>Salary:</strong> {{i.Salary}}</p>
+                <p><strong>Posted Date:</strong> {{i.posted_date}}</p>
+                <p><strong>Username:</strong> {{ i.user.username }}</p>
+
+            </div>
+        {% endfor %}
+        </div>
+
+        
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        function searchJobs() {
+            const input = document.getElementById('search').value.toLowerCase();
+            const jobs = document.querySelectorAll('.job');
+            jobs.forEach(job => {
+                const title = job.querySelector('h5').textContent.toLowerCase();
+                if (title.includes(input)) {
+                    job.style.display = 'block';
+                } else {
+                    job.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+{% endblock body %}
+    

@@ -1,0 +1,15 @@
+<ul>
+    {% if user.user_type == 'admin' %}
+      <li><a href="{% url 'proPage' %}">Profile-{{request.user.username}}</a></li>
+      
+    {% elif user.user_type == 'viewer' %}
+      <li><a href="{% url 'createresumePage' %}">Create Resume</a></li>
+      <li style="float:right"><a href="{% url 'ProfilePage' %}">Profile-{{request.user.username}}</a></li>
+    {% endif %}
+    
+    <li><a href="{% url 'jobfeed' %}">Job Feed</a></li>
+    
+    <li style="float:right" ><a href="{% url 'logoutPage' %}">Logout</a></li>
+    
+
+  </ul>

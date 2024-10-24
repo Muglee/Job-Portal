@@ -1,0 +1,116 @@
+{% extends 'common/home.html' %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Applicant List</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+  /* General styles for body and container */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Table styles */
+.applicant-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.applicant-table th, .applicant-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.applicant-table th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.applicant-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.applicant-table tr:hover {
+  background-color: #ddd;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Applicant List</h1>
+    <table class="applicant-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Work Experience</th>
+          <th>Expected Salary</th>
+          <th>Resume</th>
+          <th>Actions</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{applications.Full_name}}</td>
+          <td>{{applications.work_experience}}</td>
+          <td>{{applications.Expected_salary}}</td>
+          <td>
+            {% if applications.status == 'pending' %}
+              <a href="{% url '' %}">Reject</a>
+              <a href="{% url '' %}">Interview</a>
+            {% elif applications.status == 'rejected' %}
+              <button>Rejected</button>
+            {% else%}
+              <button>Scheduled</button>
+          </td>
+
+          <td>
+            {% if applications.status == 'rejected' %}
+              <span>Rejected</span>
+            {% elif applications.status == 'rejected' %}
+              {% if applications.messages.count %}
+                <span>Rejected</span>
+              {% elif applications.messages.count %}
+                <a href="{% url '' %}">Reject</a>
+              {% else%}
+                <span>Pending</span>
+          </td>
+        </tr>
+        <tr>
+          <td>No Applicants for this Job</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
+
+
+{% endblock body %}

@@ -1,0 +1,80 @@
+
+{% extends 'common/home.html' %}
+
+{% block body %}
+<!DOCTYPE html>
+<html>
+<style>
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+div {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+</style>
+<body>
+
+<h3>Select Skills</h3>
+
+<div>
+  <form action="" method="POST" enctype="multipart/form-data ">
+    {% csrf_token %}
+
+
+    <label for="language_id"> Edit Language</label>
+    <select id="language_id" name="language_id">
+    
+    {% for i in all_languages %}
+    <option value="{{i.id}}" {% if user_Languages.Language_name == i.my_Language_name %} selected {% endif%}>{{i.my_Language_name}}</option>
+    {% endfor %}
+        
+      
+    </select>
+
+    
+
+    <label for="usertype">Skill Level</label>
+    <select id="usertype" name="language_level">
+
+    {% for value,label in proficiency_level %}
+        <option value="{{value}}" {% if user_Languages.proficiency_level == value %} selected {% endif %}>{{label | title}}</option>
+    {% endfor %}
+            
+      
+    </select>
+  
+    <input type="submit" value="Submit">
+  </form>
+</div>
+
+</body>
+</html>
+
+
+
+{% endblock body %}
+    
